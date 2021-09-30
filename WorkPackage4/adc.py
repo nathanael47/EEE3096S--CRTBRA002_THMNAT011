@@ -15,22 +15,23 @@ interval = 10.0
 global counter 
 counter = 0
 
-# create the spi bus
-spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
-
-# create the cs (chip select)
-cs = digitalio.DigitalInOut(board.D5)
-# create the mcp object
-mcp = MCP.MCP3008(spi, cs)
-
-# create an analog input channel on pin 0
-chan_temp = AnalogIn(mcp, MCP.P2)
-chan_light = AnalogIn(mcp, MCP.P3)
 
 #print("Raw ADC Value: ", chan.value)
 #print("ADC Voltage: " + str(chan.voltage) + "V")
 
 def setup():
+    # create the spi bus
+    spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
+
+    # create the cs (chip select)
+    cs = digitalio.DigitalInOut(board.D5)
+    # create the mcp object
+    mcp = MCP.MCP3008(spi, cs)
+
+    # create an analog input channel on pin 0
+    chan_temp = AnalogIn(mcp, MCP.P2)
+    chan_light = AnalogIn(mcp, MCP.P3)
+
 	#board D21
 	#GPIO.setmode(GPIO.BOARD)
 	GPIO.setup(21,GPIO.IN, pull_up_down = GPIO.PUD_UP)
