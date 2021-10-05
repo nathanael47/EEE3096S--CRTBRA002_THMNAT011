@@ -104,11 +104,11 @@ def setup():
     GPIO.output(32, GPIO.LOW)   #set up the lED to initial value of low/ off
     
     GPIO.setup(33, GPIO.OUT)    #setting the buzzer as an output 
-    #GPIO.output(33, GPIO.LOW)
+    GPIO.output(33, GPIO.LOW)
     
     GPIO.setup(16, GPIO.IN)		#Initialised the first button as an input 
     GPIO.setup(18, GPIO.IN)		#setup the second  button as an input 
-   # eeprom.clear(2048)
+    #eeprom.clear(2048)
     # Setup PWM channels
     global buzzerPwm
     buzzerPwm = GPIO.PWM(33, 1)  #setting up the buzzer as pwm
@@ -247,8 +247,9 @@ def btn_guess_pressed(channel):
             buzzerPwm.stop() #stopping the buzzer 
             print("Congratulations!!! You guessed the correct number " + str(value)) #Congratulation message 
             name = "" #empty string to store the users name 
-            #while len(name) != 3:
-            name = input("Enter your name. Must be 3 letter:\n") #prompting the user to insert their name 
+            while len(name) != 3:
+            	name = input("Enter your name. Must be 3 letter:\n") #prompting the user to insert their name
+            	pass 
             score_count += 1 #increasing the number of high scores stored 
             scores.append([name,number_of_guesses]) #appending to an array list 
             scores.sort(key=lambda x: x[1]) #sorting out the array list from highest to lowest 
@@ -339,7 +340,7 @@ def trigger_buzzer():
     	buzzerPwm.start(50) #start the buzzer 
     	buzzerPwm.ChangeFrequency(4) #change the frequency so it buzzes four times every second 
     else:
-    	pass
+        buzzerPwm.start(0)
     pass
 
 
